@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
 import { column, beforeSave, BaseModel } from '@ioc:Adonis/Lucid/Orm'
+import { attachment, AttachmentContract } from '@ioc:Adonis/Addons/AttachmentLite'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -17,6 +18,9 @@ export default class User extends BaseModel {
 
   @column()
   public rememberMeToken?: string
+
+  @attachment({ preComputeUrl: true, disk: 's3' })
+  public avatar: AttachmentContract | null
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
