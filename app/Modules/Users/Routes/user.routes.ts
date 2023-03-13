@@ -16,3 +16,8 @@ Route.patch('/me/change-email', ChangeEmailController).middleware('auth')
 Route.get('/me/confirm-change-email', ConfirmChangeEmailController)
 Route.patch('/me/change-avatar', ChangeAvatarController).middleware('auth')
 Route.delete('/me/remove-avatar', RemoveAvatarController).middleware('auth')
+Route.delete('/me/logout', async ({ auth, response }: HttpContextContract) => {
+  await auth.logout()
+
+  return response.noContent()
+}).middleware('auth')
