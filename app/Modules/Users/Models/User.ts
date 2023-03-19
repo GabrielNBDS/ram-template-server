@@ -13,6 +13,9 @@ export default class User extends BaseModel {
   @column()
   public email: string
 
+  @column()
+  public role: 'admin' | 'user'
+
   @column({ serializeAs: null })
   public password: string | null
 
