@@ -7,13 +7,13 @@ export default class ChangeAvatarValidator {
   public schema = schema.create({
     avatar: schema.file({
       size: '3mb',
-      extnames: ['jpg', 'png'],
+      extnames: ['jpg', 'jpeg', 'png'],
     }),
   })
 
   public messages = {
-    required: 'Campo obrigatório',
-    size: 'Tamanho máximo da imagem: 3MB',
-    extnames: 'Formatos aceitos: PNG e JPG',
+    'required': 'Campo obrigatório',
+    'size': 'Tamanho máximo da imagem: 3MB',
+    'file.extname': 'Formatos aceitos: PNG e JPG/JPEG',
   }
 }

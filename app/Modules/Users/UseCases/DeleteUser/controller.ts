@@ -1,7 +1,8 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { ReadUserService } from '.'
+import { DeleteUserService } from '.'
+import User from '../../Models/User'
 
-export default async function ReadUserController({
+export default async function DeleteUserController({
   bouncer,
   request,
   response,
@@ -10,14 +11,12 @@ export default async function ReadUserController({
 
   await bouncer.with('UserPolicy').authorize('isAdmin')
 
+  const user = await User.findOrFail(id)
+
   try {
-    const user = await ReadUserService(id)
+    await DeleteUserService(user)
 
-    if (!user) {
-      return response.notFound()
-    }
-
-    return response.ok(user)
+    return response.noContent()
   } catch (err) {
     console.log(err)
     return response.internalServerError({

@@ -3,6 +3,8 @@ import Hash from '@ioc:Adonis/Core/Hash'
 import { column, beforeSave, BaseModel } from '@ioc:Adonis/Lucid/Orm'
 import { attachment, AttachmentContract } from '@ioc:Adonis/Addons/AttachmentLite'
 
+export const roles = ['admin', 'user'] as const
+
 export default class User extends BaseModel {
   @column({ isPrimary: true })
   public id: number
@@ -14,10 +16,13 @@ export default class User extends BaseModel {
   public email: string
 
   @column()
-  public role: 'admin' | 'user'
+  public role: (typeof roles)[number]
 
   @column({ serializeAs: null })
   public password: string | null
+
+  @column()
+  public firstLogin?: boolean
 
   @column()
   public rememberMeToken?: string
